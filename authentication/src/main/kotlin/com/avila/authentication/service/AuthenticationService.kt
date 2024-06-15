@@ -15,14 +15,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
     private val jwtService: JsonWebTokenService
 ) {
 
-    fun login(request: LoginRequest): LoginResponse {
+    fun login(request: LoginRequest): LoginResponse? {
 
         val authentication = manager.authenticate (
             AuthenticationToken( request.login, request.password )
         )
 
         return LoginResponse (
-            jwtService.generate( authentication.principal as Account ), authentication
+            jwtService.generate(authentication.principal as Account) ?: return null,
+            authentication
         )
 
     }
