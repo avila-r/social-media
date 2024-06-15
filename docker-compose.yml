@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+
+  account-db:
+    build: ./datasources/account
+    container_name: account-db
+    environment:
+      POSTGRES_DB: account-db
+      POSTGRES_USER: dbf0e9e4-d2f0-4bfe-b66b-91c327b2a9b9
+      POSTGRES_PASSWORD: 5f2a6a58-9f3f-4a99-8a02-3c8e367f0168
+    ports:
+      - '5432:5432'
+    networks:
+      - social-media-network
+
+  authentication-service:
+    build: ./authentication
+    container_name: authentication-service
+    ports:
+      - '8080:8080'
+    environment:
+      ACCOUNT_DB_CONTAINER: account-db
+    depends_on:
+      - account-db
+    networks:
+      - social-media-network
+
+networks:
+  social-media-network:
+    driver: bridge
