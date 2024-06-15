@@ -1,7 +1,7 @@
 val mainClass: String by project
 
 plugins {
-
+    kotlin("plugin.jpa") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
     kotlin("jvm") version "1.9.24"
 
@@ -37,9 +37,25 @@ dependencies {
      */
         implementation("org.springframework.boot:spring-boot-starter-security")
         implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    /*
+     * PostgreSQL
+     */
+        implementation("org.postgresql:postgresql:42.7.3")
+
+    /*
+     * JWT
+     */
+        implementation("com.auth0:java-jwt:4.4.0")
+
+    /*
+     * Docs
+     */
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 
     /*
      * Tests
@@ -49,6 +65,16 @@ dependencies {
 
         // JUnit Vintage Engine support
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+        // AssertJ
+        testImplementation("org.assertj:assertj-core")
+
+        // Mockito
+        testImplementation("org.mockito:mockito-core")
+
+
+        // Test datasource
+        testImplementation("com.h2database:h2")
 
         // Spring tests
         testImplementation("org.springframework.boot:spring-boot-starter-test")
