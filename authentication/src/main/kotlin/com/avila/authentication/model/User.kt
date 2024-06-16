@@ -2,35 +2,50 @@ package com.avila.authentication.model
 
 import jakarta.persistence.*
 
-import java.time.LocalDate
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
+
 import java.time.LocalDateTime
 import java.util.UUID
 
 @Table(name = "accounts")
 @Entity class Account (
+
+    @Column(name = "login", unique = true, nullable = false)
     val login: String,
-    @Column(name = "password_hash") val password: String,
+
+    @Column(name = "password_hash", nullable = false)
+    val password: String,
+
+    @Column(name = "email", unique = true, nullable = false)
     val email: String,
-    val createdAt: LocalDateTime,
-    val lastLoginAt: LocalDateTime?,
-    val accountStatus: String
 
-) {
+) : UserDetails {
+
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id var id: UUID? = null
-}
 
-@Table(name = "profiles")
-@Entity class Profile (
-    val fullName: String,
-    val birthDate: LocalDate,
-    val gender: String,
-    val profilePicture: String,
-    val contactInfo: String,
-    val preferences: String,
-    val privacySettings: String
-) {
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Id var id: UUID? = null
-    var accountId: UUID? = null
+    @Column(name = "created_at", nullable = false)
+    @CreatedDate
+    var createdAt: LocalDateTime? = null
+
+    @Column(name = "status", nullable = false)
+    var accountStatus: String? = null
+
+    @Column(name = "last_login_at", nullable = true)
+    var lastLoginAt: LocalDateTime? = null
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getPassword(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUsername(): String {
+        TODO("Not yet implemented")
+    }
+
 }

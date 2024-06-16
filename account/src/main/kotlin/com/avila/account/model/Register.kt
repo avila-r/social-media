@@ -1,4 +1,4 @@
-package com.avila.authentication.model
+package com.avila.account.model
 
 data class RegisterRequest (
     val name: String
