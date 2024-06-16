@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository interface AccountRepository : CrudRepository<Account, UUID> {
-    fun findByLogin(login: String): Account?
+    fun findByLogin(login: String?): Account?
 }
