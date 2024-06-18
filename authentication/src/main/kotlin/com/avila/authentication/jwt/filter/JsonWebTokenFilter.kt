@@ -13,7 +13,6 @@ import jakarta.servlet.FilterChain as Chain
 
 import org.springframework.http.HttpHeaders as Header
 
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken as AuthenticationToken
 
@@ -26,10 +25,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
         val token: String? = getAuthorizationHeader(request)
 
         token?.let {
-            val account: UserDetails = accountService.loadUserByUsername(tokenService.validate(token))
+            val account = accountService.loadUserByUsername(tokenService.validate(token))
 
-            SecurityContextHolder.getContext().authentication =
-                AuthenticationToken ( account, null, account.authorities )
+            account?.let {
+                SecurityContextHolder.getContext().authentication =
+                    AuthenticationToken ( account, null, account.authorities )
+            }
         }
 
         chain.doFilter(request, response)
