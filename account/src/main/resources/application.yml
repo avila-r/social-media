@@ -1,10 +1,19 @@
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${ACCOUNT_DB_CONTAINER:account-db}:5432/account-db
-    username: ${ACCOUNT_DB_USERNAME:dbf0e9e4-d2f0-4bfe-b66b-91c327b2a9b9}
-    password: ${ACCOUNT_DB_PASSWORD:5f2a6a58-9f3f-4a99-8a02-3c8e367f0168}
-  application:
-    name: account
 server:
   port: 8081
+
+spring:
+  application:
+    name: account
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${ACCOUNT_DB_CONTAINER:localhost}:5432/account-db
+    username: ${ACCOUNT_DB_USERNAME:dbf0e9e4-d2f0-4bfe-b66b-91c327b2a9b9}
+    password: ${ACCOUNT_DB_PASSWORD:5f2a6a58-9f3f-4a99-8a02-3c8e367f0168}
