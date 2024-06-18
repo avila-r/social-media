@@ -13,10 +13,10 @@ import java.util.UUID
 @Entity class Account (
 
     @Column(name = "login", unique = true, nullable = false)
-    val login: String,
+    private val login: String,
 
     @Column(name = "password_hash", nullable = false)
-    val password: String,
+    private val password: String,
 
     @Column(name = "email", unique = true, nullable = false)
     val email: String,
@@ -40,12 +40,24 @@ import java.util.UUID
         TODO("Not yet implemented")
     }
 
-    override fun getPassword(): String {
-        TODO("Not yet implemented")
+    override fun getUsername(): String = login
+
+    override fun getPassword(): String = password
+
+    override fun isEnabled(): Boolean {
+        return true
     }
 
-    override fun getUsername(): String {
-        TODO("Not yet implemented")
+    override fun isCredentialsNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return true
     }
 
 }
