@@ -9,7 +9,6 @@ An entire social media platform built as microsservices. This project encompasse
 - **Friends/Followers Management:** Send/accept friend requests, follow/unfollow users, view friends/followers lists.
 - **Private Messaging:** Send and receive messages, read/unread status, delete messages.
 - **Notifications:** Real-time notifications for likes, comments, friend requests, and messages.
-- **Media Upload and Management:** Upload and manage profile pictures, post images, and videos.
 - **Search:** Search for users, posts, and comments.
 - **Admin Panel:** User management (block/unblock users), content moderation (remove inappropriate posts/comments).
 
