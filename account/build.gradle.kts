@@ -28,18 +28,28 @@ repositories {
 
 dependencies {
 	/*
+	 * Arrow
+	 */
+		implementation("io.arrow-kt:arrow-core:1.2.4")
+
+	/*
+	 * Result<T, B>
+	 */
+		implementation("com.michael-bull.kotlin-result:kotlin-result:2.0.0")
+
+	/*
      * Spring Boot's Starters
      */
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+		implementation("org.springframework.boot:spring-boot-starter-web")
+		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
+		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+		implementation("org.jetbrains.kotlin:kotlin-reflect")
 
 	/*
      * PostgreSQL
      */
-	implementation("org.postgresql:postgresql:42.7.3")
+		implementation("org.postgresql:postgresql:42.7.3")
 
 	/*
      * Tests
