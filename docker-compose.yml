@@ -26,6 +26,18 @@ services:
     networks:
       - social-media-network
 
+  account-service:
+    build: ./account
+    container_name: account-service
+    ports:
+      - '8081:8081'
+    environment:
+      ACCOUNT_DB_CONTAINER: account-db
+    depends_on:
+      - account-db
+    networks:
+      - social-media-network
+
 networks:
   social-media-network:
     driver: bridge
