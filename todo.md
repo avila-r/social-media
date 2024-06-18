@@ -85,16 +85,6 @@
     - `GET /notifications` - Get all notifications
     - `POST /notifications/mark-read` - Mark notifications as read
 
-### Media Upload and Management
-- **Features:**
-    - Upload profile pictures, post images, videos
-    - View/delete uploaded media
-
-- **Endpoints:**
-    - `POST /media/upload` - Upload media
-    - `GET /media/{id}` - Get media by ID
-    - `DELETE /media/{id}` - Delete media
-
 ## Additional Features
 
 ### Search
