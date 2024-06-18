@@ -3,7 +3,7 @@ package com.avila.account.service
 import com.github.michaelbull.result.*
 
 import com.avila.account.error.AccountError
-import com.avila.account.error.Error as Err
+import com.avila.account.error.Error
 import com.avila.account.model.Account
 import com.avila.account.repository.AccountRepository
 import com.avila.account.repository.validate
@@ -15,7 +15,7 @@ import java.util.UUID
 
 @Service class AccountService ( private val repository: AccountRepository ) {
 
-    @Transactional fun create(account: Account): Result<Account, Err> {
+    @Transactional fun create(account: Account): Result<Account, Error> {
 
         val validation = repository.validate(account)
 
@@ -27,7 +27,7 @@ import java.util.UUID
 
     }
 
-    @Transactional fun update(account: Account): Result<Account, Err> {
+    @Transactional fun update(account: Account): Result<Account, Error> {
 
         if (!repository.existsById(account.id)) {
             return Err(AccountError.ACCOUNT_NOT_FOUND)
@@ -37,7 +37,7 @@ import java.util.UUID
 
     }
 
-    @Transactional fun deleteById(id: UUID?): Result<Boolean, Err> {
+    @Transactional fun deleteById(id: UUID?): Result<Boolean, Error> {
 
         val account = repository.findById(id) ?: return Err(AccountError.ACCOUNT_NOT_FOUND)
 
@@ -47,7 +47,7 @@ import java.util.UUID
 
     }
 
-    fun getById(id: UUID?): Result<Account, Err> {
+    fun getById(id: UUID?): Result<Account, Error> {
 
         val account = repository.findById(id) ?: return Err(AccountError.ACCOUNT_NOT_FOUND)
 
@@ -55,7 +55,7 @@ import java.util.UUID
 
     }
 
-    fun getByLogin(login: String?): Result<Account, Err> {
+    fun getByLogin(login: String?): Result<Account, Error> {
 
         val account = repository.findByLogin(login) ?: return Err(AccountError.ACCOUNT_NOT_FOUND)
 
@@ -63,7 +63,7 @@ import java.util.UUID
 
     }
 
-    fun getByEmail(email: String?): Result<Account, AccountError> {
+    fun getByEmail(email: String?): Result<Account, Error> {
 
         val account = repository.findByEmail(email) ?: return Err(AccountError.ACCOUNT_NOT_FOUND)
 

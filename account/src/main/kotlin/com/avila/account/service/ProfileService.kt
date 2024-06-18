@@ -2,7 +2,7 @@ package com.avila.account.service
 
 import com.github.michaelbull.result.*
 
-import com.avila.account.error.Error as Err
+import com.avila.account.error.Error
 import com.avila.account.error.ProfileError
 import com.avila.account.model.Profile
 import com.avila.account.repository.ProfileRepository
@@ -16,7 +16,7 @@ import java.util.UUID
 @Service
 class ProfileService ( private val repository: ProfileRepository ) {
 
-    @Transactional fun create(profile: Profile): Result<Profile, Err> {
+    @Transactional fun create(profile: Profile): Result<Profile, Error> {
 
         val validation = repository.validate(profile)
 
@@ -28,7 +28,7 @@ class ProfileService ( private val repository: ProfileRepository ) {
 
     }
 
-    @Transactional fun update(profile: Profile): Result<Profile, Err> {
+    @Transactional fun update(profile: Profile): Result<Profile, Error> {
 
         if (!repository.existsById(profile.id)) {
             return Err(ProfileError.PROFILE_NOT_FOUND)
@@ -38,7 +38,7 @@ class ProfileService ( private val repository: ProfileRepository ) {
 
     }
 
-    @Transactional fun deleteById(uuid: UUID?): Result<Boolean, Err> {
+    @Transactional fun deleteById(uuid: UUID?): Result<Boolean, Error> {
 
         val profile = repository.findById(uuid) ?: return Err(ProfileError.PROFILE_NOT_FOUND)
 
@@ -48,7 +48,7 @@ class ProfileService ( private val repository: ProfileRepository ) {
 
     }
 
-    fun getById(uuid: UUID?): Result<Profile, Err> {
+    fun getById(uuid: UUID?): Result<Profile, Error> {
 
         val profile = repository.findById(uuid) ?: return Err(ProfileError.PROFILE_NOT_FOUND)
 
@@ -56,7 +56,7 @@ class ProfileService ( private val repository: ProfileRepository ) {
 
     }
 
-    fun getByAccountId(uuid: UUID?): Result<Profile, Err> {
+    fun getByAccountId(uuid: UUID?): Result<Profile, Error> {
 
         val profile = repository.findById(uuid) ?: return Err(ProfileError.PROFILE_NOT_FOUND)
 
