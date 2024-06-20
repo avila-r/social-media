@@ -1,10 +1,12 @@
 package com.avila.authentication.model
 
+import jakarta.validation.constraints.NotBlank
+
 import org.springframework.security.core.Authentication
 
 data class LoginRequest (
-    val login: String,
-    val password: String
+    @NotBlank val login: String,
+    @NotBlank val password: String
 )
 
 data class LoginResponse (
