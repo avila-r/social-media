@@ -11,3 +11,9 @@ api:
   security:
     jwt:
       secret: default-social-media-platform-key # TODO: Implement secret key
+
+springdoc:
+  api-docs:
+    path: /docs/openapi
+  swagger-ui:
+    path: /docs/swagger
