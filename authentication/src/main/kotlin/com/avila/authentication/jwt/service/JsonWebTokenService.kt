@@ -1,11 +1,12 @@
 package com.avila.authentication.jwt.service
 
+import com.avila.authentication.model.Account
+
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.avila.authentication.model.Account
 
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -17,7 +18,7 @@ import java.time.ZoneOffset
         this.runCatching {
             return JWT.create()
                 .withIssuer("social-media-platform")
-                .withSubject(user.login)
+                .withSubject(user.username)
                 .withExpiresAt(getExpirationDate())
                 .sign(Algorithm.HMAC256("secret-here"))
         }.onFailure {

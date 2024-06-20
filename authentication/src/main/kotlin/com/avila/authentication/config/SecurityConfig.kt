@@ -35,9 +35,7 @@ import jakarta.servlet.http.HttpServletResponse as Response
         }
 
         .authorizeHttpRequests { it
-            .requestMatchers("/api/v1/auth/**").permitAll()
-            .requestMatchers("/api/v1/public/**").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
         }
 
         .addFilterBefore( jwt, UsernamePasswordAuthenticationFilter::class.java )
