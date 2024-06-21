@@ -6,7 +6,6 @@ import com.avila.account.error.AccountError
 import com.avila.account.error.Error
 import com.avila.account.model.Account
 import com.avila.account.repository.AccountRepository
-import com.avila.account.repository.validate
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -68,6 +67,20 @@ import java.util.UUID
         val account = repository.findByEmail(email) ?: return Err(AccountError.ACCOUNT_NOT_FOUND)
 
         return Ok(account)
+
+    }
+
+    fun AccountRepository.validate(account: Account): Result<Boolean, AccountError> {
+
+        if (this.existsByEmail(account.email)) {
+            return Err(AccountError.EMAIL_ALREADY_IN_USE)
+        }
+
+        if (this.existsByLogin(account.login)) {
+            return Err(AccountError.USERNAME_ALREADY_IN_USE)
+        }
+
+        return Ok(true)
 
     }
 

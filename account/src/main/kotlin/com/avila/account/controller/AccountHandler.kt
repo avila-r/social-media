@@ -3,6 +3,8 @@ package com.avila.account.controller
 import com.avila.account.model.Account
 import com.avila.account.service.AccountService
 
+import jakarta.validation.Valid
+
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -17,7 +19,7 @@ import java.util.UUID
 @RestController class AccountHandler ( private val service: AccountService ) : Handler {
 
     @PatchMapping
-    fun updateAccount(@RequestBody account: Account) = handle(service.update(account))
+    fun updateAccount(@Valid @RequestBody account: Account) = handle(service.update(account))
 
     @DeleteMapping("/id/{id}")
     fun deleteAccount(@PathVariable id: String?) = handle(service.deleteById(id?.let { UUID.fromString(it) }))

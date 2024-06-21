@@ -1,19 +1,31 @@
 package com.avila.account.model
 
-import jakarta.persistence.*
+import jakarta.persistence.Table
+import jakarta.persistence.Entity
+import jakarta.persistence.Column
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Past
+import jakarta.validation.constraints.Pattern
+
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 @Table(name = "profiles")
 @Entity class Profile (
 
     @Column(name = "full_name", nullable = false)
+    @field:NotBlank
     val fullName: String,
 
     @Column(name = "birth_date", nullable = false)
+    @field:Past
     val birthDate: LocalDate,
 
     @Column(name = "gender", nullable = false)
+    @field:Pattern(regexp = "^(?i)(male|female)\$")
     val gender: String,
 
     ) {

@@ -6,7 +6,6 @@ import com.avila.account.error.Error
 import com.avila.account.error.ProfileError
 import com.avila.account.model.Profile
 import com.avila.account.repository.ProfileRepository
-import com.avila.account.repository.validate
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -61,6 +60,16 @@ class ProfileService ( private val repository: ProfileRepository ) {
         val profile = repository.findById(uuid) ?: return Err(ProfileError.PROFILE_NOT_FOUND)
 
         return Ok(profile)
+
+    }
+
+    private fun ProfileRepository.validate(profile: Profile): Result<Boolean, ProfileError> {
+
+        if (this.existsByAccountId(profile.accountId)) {
+            return Err(ProfileError.PROFILE_ALREADY_REGISTERED_AT_ACCOUNT)
+        }
+
+        return Ok(true)
 
     }
 
