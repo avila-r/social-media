@@ -8,9 +8,12 @@ import com.avila.account.model.RegisterResponse
 
 import com.github.michaelbull.result.*
 
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
-@Service class RegistrationService ( private val accountService: AccountService, private val profileService: ProfileService ) {
+import java.time.LocalDateTime
+
+@Service class RegistrationService ( private val encoder: PasswordEncoder, private val accountService: AccountService, private val profileService: ProfileService ) {
 
     fun register(request: RegisterRequest): Result<RegisterResponse, Error> {
 
@@ -30,17 +33,19 @@ import org.springframework.stereotype.Service
 
     }
 
-}
-
-private fun RegisterRequest.build() = Pair (
-    Account(
-        login = this.login,
-        password = this.password, // TODO: Encrypt password
-        email = this.email
-    ),
-    Profile(
-        fullName = this.fullName,
-        birthDate = this.birthDate,
-        gender = this.gender
+    private fun RegisterRequest.build() = Pair (
+        Account (
+            login = this.login,
+            password = encoder.encode(this.password),
+            email = this.email,
+            createdAt = LocalDateTime.now(),
+            status = "CREATED"
+        ),
+        Profile (
+            fullName = this.fullName,
+            birthDate = this.birthDate,
+            gender = this.gender
+        )
     )
-)
+
+}
